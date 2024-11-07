@@ -1,6 +1,10 @@
 const express = require('express');
+require('dotenv').config();
 const bookRoutes = require('./api/routes/library/bookRoutes.js');
-const pdfRoutes = require('./api/routes/pdf/pdfRoutes'); // Asegúrate de que la ruta sea correcta
+const pdfRoute = require('./api/routes/pdf/pdfRoutes');
+const opinionRoutes = require('./api/routes/home/opinionRoutes.js');
+const newsRoutes = require('./api/routes/news/newsRoutes.js');
+const userRoutes = require('./api/routes/user/userRoutes.js');
 
 const cors = require('cors');
 const app = express();
@@ -13,7 +17,10 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use('/material_bibliografico', bookRoutes);
-app.use('/pdfs', pdfRoutes);
+app.use('/pdfs', pdfRoute);
+app.use('/opinions_home', opinionRoutes);
+app.use('/news', newsRoutes);
+app.use('/users', userRoutes);
 
 app.use((error, req, res, next) => {
     console.error('Error stack:', error.stack);
