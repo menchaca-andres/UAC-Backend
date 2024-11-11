@@ -18,13 +18,13 @@ const BookModel = {
         return rows[0];
     },
 
-    create: async ({ id_matbib, type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators }) => {
+    create: async ({ type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators }) => {
         const query = {
             text: `
-            INSERT INTO material_bibliografico (id_matbib, type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *
+            INSERT INTO material_bibliografico (type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *
             `,
-            values: [id_matbib, type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators]
+            values: [type_matbib, title_matbib, author_matbib, isbn_matbib, filename, lenguage_matbib, description_matbib, summary_matbib, content_matbib, collaborators]
         }
         const { rows } = await db.query(query);
         return rows[0];
