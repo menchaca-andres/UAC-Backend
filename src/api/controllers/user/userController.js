@@ -53,7 +53,7 @@ const UserController = {
         "palabrasecreta"
       )
 
-      return res.json({ ok: true, msg: token})
+      return res.json({ ok: true, msg: token, role:user.role_user})
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
