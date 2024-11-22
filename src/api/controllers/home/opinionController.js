@@ -22,7 +22,8 @@ const OpinionController = {
 
     createOpinion: async (req, res) => {
         try {
-            const { image_person, name_person, description_opinion } = req.body;
+            const { name_person, description_opinion } = req.body;
+            const image_person = req.file ? `/uploads/opinions/${req.file.filename}` : null;
     
             if (!image_person || !name_person || !description_opinion) {
                 return res.status(400).json({ error: 'All fields are required: image_person, name_person, description_opinion' });
@@ -34,11 +35,12 @@ const OpinionController = {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
-    },    
-
+    },
+    
     updateOpinion: async (req, res) => {
         try {
-            const { image_person, name_person, description_opinion } = req.body;
+            const { name_person, description_opinion } = req.body;
+            const image_person = req.file ? `/uploads/opinions/${req.file.filename}` : req.body.image_person;
     
             if (!image_person || !name_person || !description_opinion) {
                 return res.status(400).json({ error: 'All fields are required for update: image_person, name_person, description_opinion' });
@@ -51,7 +53,7 @@ const OpinionController = {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
-    },    
+    },     
 
     deleteOpinion: async (req, res) => {
         try {
