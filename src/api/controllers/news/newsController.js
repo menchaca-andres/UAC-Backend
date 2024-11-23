@@ -22,11 +22,16 @@ const NewsController = {
 
     createNews: async (req, res) => {
         try {
-            const { id_news, holder_news, image_news, date_news, summary_news } = req.body;
+            const { holder_news, date_news, summary_news } = req.body;
+            const image_news = req.file ? `uploads/news${req.file.filename}` : null;
 
-            const newNews = await NewsModel.create({id_news, holder_news, image_news, date_news, summary_news})
+            if (!holder_news || !image_news || !date_news || !summary_news) {
+                return res.status(400).json({ error: 'All fields are required: holder_news, image_news, date_news, summary_news' });
+            }
 
-            return res.status(200).json({ ok: true, msg: "News adding" })
+            const newNews = await NewsModel.create({holder_news, image_news, date_news, summary_news})
+
+            return res.status(200).json({ ok: true, msg: "News added", newss: newNews })
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -34,9 +39,17 @@ const NewsController = {
 
     updateNews: async (req, res) => {
         try {
-            const updatedNews = await NewsModel.update(req.params.id, req.body);
+            const { holder_news, date_news, summary_news } = req.body;
+            const image_news = req.file ? `uploads/news${req.file.filename}` : req.body.image_news;
+
+            if (!holder_news || !image_news || !date_news || !summary_news) {
+                return res.status(400).json({ error: 'All fields are required: holder_news, image_news, date_news, summary_news' });
+            }
+
+            const updatedNews = await NewsModel.update(req.params.id, { holder_news, image_news, date_news, summary_news });
             if (!updatedNews) return res.status(404).json({ error: 'News not found' });
-            res.json(updatedNews);
+
+            res.json({ok: true, msg: "News updated", newss: updatedNews});
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
