@@ -6,6 +6,7 @@ const opinionRoutes = require('./api/routes/home/opinionRoutes.js');
 const newsRoutes = require('./api/routes/news/newsRoutes.js');
 const userRoutes = require('./api/routes/user/userRoutes.js');
 const careerRoutes = require('./api/routes/careers/careerRoutes.js');
+const eventRoutes = require('./api/routes/events/eventRoutes.js');
 
 const cors = require('cors');
 const app = express();
@@ -23,6 +24,7 @@ app.use('/opinions_home', opinionRoutes);
 app.use('/news', newsRoutes);
 app.use('/users', userRoutes);
 app.use('/careers', careerRoutes);
+app.use('/events', eventRoutes);
 
 app.use((error, req, res, next) => {
     console.error('Error stack:', error.stack);
