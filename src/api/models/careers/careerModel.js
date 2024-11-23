@@ -18,7 +18,7 @@ const CareerModel = {
         return rows[0];
     },
 
-    create: async ({ name_career, image_career, description_career, duration_career, study_area, graduation_modality, malla_career }) => {
+    create: async ({ name_career, image_career, description_career, duration_career, study_area, graduation_modality }) => {
         const query = {
             text: `
             INSERT INTO careers (name_career, image_career, description_career, duration_career, study_area, graduation_modality)
